@@ -1,11 +1,14 @@
-from pydantic import BaseModel
+from pydantic import BaseModel,Field
 from typing import Optional
+from datetime import date
+
 
 
 class ExpenseBase(BaseModel):
-    amount: float
-    category: str
+    amount: float = Field(..., gt=0, description="Expense amount must be greater than 0")
+    category: str = Field(..., min_length=1)
     description: Optional[str] = None
+    expense_date: Optional[date] = None
 
 
 class ExpenseCreate(ExpenseBase):
@@ -13,9 +16,10 @@ class ExpenseCreate(ExpenseBase):
 
 
 class ExpenseUpdate(BaseModel):
-    amount: Optional[float] = None
-    category: Optional[str] = None
+    amount: Optional[float] = Field(None, gt=0)
+    category: Optional[str] = Field(None, min_length=1)
     description: Optional[str] = None
+    expense_date: Optional[date] = None
 
 
 class ExpenseResponse(ExpenseBase):

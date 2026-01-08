@@ -3,12 +3,17 @@ from . import models
 from ..schemas.expense import ExpenseCreate, ExpenseUpdate
 from ..schemas.user import UserCreate
 from ..core.security import hash_password
-
+from datetime import date
 
 # ---------- Expenses ----------
 
 def create_expense(db: Session, expense: ExpenseCreate):
-    db_expense = models.Expense(**expense.dict())
+    expense_data = expense.model_dump()
+
+    if expense_data.get("expense_date") is None:
+        expense_data["expense_date"] = date.today()
+
+    db_expense = models.Expense(**expense_data)
     db.add(db_expense)
     db.commit()
     db.refresh(db_expense)
@@ -24,8 +29,10 @@ def update_expense(db: Session, expense_id: int, expense: ExpenseUpdate):
     db_expense = get_expense(db, expense_id)
     if not db_expense:
         return None
-    for key, value in expense.dict(exclude_unset=True).items():
+
+    for key, value in expense.model_dump(exclude_unset=True).items():
         setattr(db_expense, key, value)
+
     db.commit()
     db.refresh(db_expense)
     return db_expense

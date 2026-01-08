@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, Date
+from datetime import date
 from .database import Base
 
 
@@ -9,6 +10,7 @@ class Expense(Base):
     amount = Column(Float, nullable=False)
     category = Column(String, nullable=False)
     description = Column(String)
+    expense_date = Column(Date, default=date.today)
 
 
 class User(Base):
