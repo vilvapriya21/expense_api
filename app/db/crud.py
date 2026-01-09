@@ -4,12 +4,15 @@ from ..schemas.expense import ExpenseCreate, ExpenseUpdate
 from ..schemas.user import UserCreate
 from ..core.security import hash_password
 from datetime import date
-
+from app.core.logger import logger
 # ---------- Expenses ----------
 
+
 def create_expense(db: Session, expense: ExpenseCreate):
+    logger.info("Creating new expense")
     expense_data = expense.model_dump()
 
+    # REAL-TIME BEHAVIOR: server controls the date
     if expense_data.get("expense_date") is None:
         expense_data["expense_date"] = date.today()
 

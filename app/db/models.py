@@ -3,6 +3,9 @@ from datetime import date
 from .database import Base
 
 
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
+
 class Expense(Base):
     __tablename__ = "expenses"
 
@@ -12,10 +15,15 @@ class Expense(Base):
     description = Column(String)
     expense_date = Column(Date, default=date.today)
 
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    user = relationship("User")
+
 
 class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
+    username = Column(String, unique=True, index=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
+
+    expenses = relationship("Expense", back_populates="user")

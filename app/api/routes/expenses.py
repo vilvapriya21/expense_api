@@ -33,9 +33,8 @@ def update_expense(expense_id: int, expense: ExpenseUpdate, db: Session = Depend
     return updated
 
 
-@router.delete("/{expense_id}")
+@router.delete("/{expense_id}", status_code=204)
 def delete_expense(expense_id: int, db: Session = Depends(get_db)):
     deleted = crud.delete_expense(db, expense_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Expense not found")
-    return {"message": "Expense deleted successfully"}
