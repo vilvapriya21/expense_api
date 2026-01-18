@@ -4,9 +4,10 @@ from typing import Any, Optional
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordBearer
-
+from fastapi import Depends
 from app.core.config import settings
 from ..db import crud
+from app.dependencies import get_db
 
 # ---------------- OAuth2 Scheme ----------------
 
@@ -60,3 +61,6 @@ def verify_access_token(token: str, db: Session) -> Any:
         raise JWTError("Could not validate credentials")
 
     return user
+
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    return verify_access_token(token, db)
