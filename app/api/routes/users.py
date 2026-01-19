@@ -8,7 +8,7 @@ from ...dependencies import get_db
 router = APIRouter(prefix="/users", tags=["Users"])
 
 
-@router.post("/", response_model=UserResponse)
+@router.post("/", response_model=UserResponse, status_code=201)
 def register_user(user: UserCreate, db: Session = Depends(get_db)):
     existing = crud.get_user_by_username(db, user.username)
     if existing:

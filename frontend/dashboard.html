@@ -12,9 +12,27 @@
 
     <p id="welcome"></p>
 
+    <hr />
+
+    <h3>Add Expense</h3>
+    <form id="expenseForm">
+        <input type="number" id="amount" placeholder="Amount" required />
+        <input type="text" id="category" placeholder="Category" required />
+        <input type="text" id="description" placeholder="Description" />
+        <button type="submit">Add Expense</button>
+    </form>
+
+    <p id="expenseMessage"></p>
+
+    <hr />
+
+    <h3>Your Expenses</h3>
+    <ul id="expensesList"></ul>
+
     <button id="logoutBtn">Logout</button>
 </div>
 
 <script src="js/dashboard.js"></script>
+<script src="js/expenses.js"></script>
 </body>
 </html>

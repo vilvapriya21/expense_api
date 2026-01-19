@@ -1,9 +1,14 @@
+const API_BASE_URL = "http://127.0.0.1:8000";
+
 document.getElementById("registerForm")?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const message = document.getElementById("message");
+
+    message.textContent = "";
+    message.style.color = "red";
 
     try {
         const response = await fetch(`${API_BASE_URL}/users/`, {
@@ -15,7 +20,6 @@ document.getElementById("registerForm")?.addEventListener("submit", async (e) =>
         const data = await response.json();
 
         if (!response.ok) {
-            message.style.color = "red";
             message.textContent = data.detail || "Registration failed";
             return;
         }
@@ -23,16 +27,12 @@ document.getElementById("registerForm")?.addEventListener("submit", async (e) =>
         message.style.color = "green";
         message.textContent = "Registration successful! Redirecting to login...";
 
-        // redirect after slight delay
         setTimeout(() => {
             window.location.href = "index.html";
         }, 1000);
 
     } catch (error) {
-        message.style.color = "red";
-        message.textContent = "Server error";
         console.error(error);
+        message.textContent = "Server error";
     }
-
-    return false; // prevent default form behavior
 });
