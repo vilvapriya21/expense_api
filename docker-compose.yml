@@ -1,0 +1,14 @@
+services:
+  backend:
+    image: first_api
+    build: .
+    container_name: expense_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./expenses.db:/app/expenses.db
+    environment:
+      - DATABASE_URL=sqlite:///./expenses.db
+      - SECRET_KEY=change-this-later
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
