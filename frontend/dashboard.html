@@ -2,37 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Expense Tracker | Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
 
-<div class="container">
-    <h2>Dashboard</h2>
+<header class="topbar">
+    <h2 id="welcome">Welcome</h2>
+    <button id="logoutBtn" class="logout-btn">Logout</button>
+</header>
 
-    <p id="welcome"></p>
+<div class="dashboard">
 
-    <hr />
+    <div class="actions">
+        <button id="showAddBtn">➕ Add Expense</button>
+        <button id="showListBtn">📄 View Expenses</button>
+    </div>
 
-    <h3>Add Expense</h3>
-    <form id="expenseForm">
-        <input type="number" id="amount" placeholder="Amount" required />
-        <input type="text" id="category" placeholder="Category" required />
-        <input type="text" id="description" placeholder="Description" />
-        <button type="submit">Add Expense</button>
-    </form>
+    <!-- ADD EXPENSE CARD -->
+    <div class="card hidden" id="addExpenseCard">
+        <h3>Add Expense</h3>
+        <form id="expenseForm">
+            <input type="number" id="amount" placeholder="Amount (₹)" required />
+            <input type="text" id="category" placeholder="Category" required />
+            <input type="text" id="description" placeholder="Description" />
+            <button type="submit">Save Expense</button>
+        </form>
+        <p id="expenseMessage"></p>
+    </div>
 
-    <p id="expenseMessage"></p>
+    <!-- EXPENSE LIST CARD -->
+    <div class="card hidden" id="expenseListCard">
+        <h3>Your Expenses</h3>
+        <ul id="expensesList"></ul>
+    </div>
 
-    <hr />
+</div>
 
-    <h3>Your Expenses</h3>
-    <ul id="expensesList"></ul>
-
-    <button id="logoutBtn">Logout</button>
+<!-- Edit Modal -->
+<div class="modal hidden" id="editModal">
+    <div class="modal-content">
+        <h3>Edit Expense</h3>
+        <input id="editAmount" type="number" />
+        <input id="editCategory" type="text" />
+        <input id="editDescription" type="text" />
+        <div class="modal-actions">
+            <button id="saveEditBtn">Save</button>
+            <button id="cancelEditBtn" class="secondary">Cancel</button>
+        </div>
+    </div>
 </div>
 
 <script src="js/dashboard.js"></script>
 <script src="js/expenses.js"></script>
+
+<script>
+    const addBtn = document.getElementById("showAddBtn");
+    const listBtn = document.getElementById("showListBtn");
+
+    const addCard = document.getElementById("addExpenseCard");
+    const listCard = document.getElementById("expenseListCard");
+
+    addBtn.onclick = () => {
+        addCard.classList.remove("hidden");
+        listCard.classList.add("hidden");
+    };
+
+    listBtn.onclick = () => {
+        listCard.classList.remove("hidden");
+        addCard.classList.add("hidden");
+    };
+</script>
+
 </body>
 </html>
