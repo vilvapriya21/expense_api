@@ -5,13 +5,14 @@
 
 body {
     margin: 0;
-    background: linear-gradient(135deg, #667eea, #764ba2);
     min-height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
 }
 
 /* ---------- TOP BAR ---------- */
 .topbar {
-    background: white;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
@@ -22,42 +23,68 @@ body {
     background: #ff4d4d;
     color: white;
     border: none;
-    padding: 8px 14px;
-    border-radius: 5px;
+    padding: 8px 16px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
 /* ---------- DASHBOARD ---------- */
 .dashboard {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 30px auto;
     padding: 20px;
 }
 
-/* ---------- ACTION BUTTONS ---------- */
+/* ---------- HERO ---------- */
+.hero-card {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    padding: 30px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.hero-card h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.hero-card p {
+    margin-top: 8px;
+    opacity: 0.9;
+}
+
+/* ---------- ACTIONS ---------- */
 .actions {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
     margin-bottom: 30px;
 }
 
 .actions button {
-    padding: 14px 20px;
-    border-radius: 10px;
+    padding: 14px 24px;
+    border-radius: 12px;
     border: none;
     font-size: 16px;
     cursor: pointer;
-    background: #ffffff;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background: white;
+    font-weight: 600;
+    transition: transform 0.2s ease;
+}
+
+.actions button:hover {
+    transform: translateY(-3px);
 }
 
 /* ---------- CARD ---------- */
 .card {
     background: white;
     padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    animation: fadeIn 0.3s ease;
 }
 
 .hidden {
@@ -68,20 +95,21 @@ body {
 input {
     width: 100%;
     padding: 12px;
-    margin-top: 10px;
-    border-radius: 6px;
+    margin-top: 12px;
+    border-radius: 8px;
     border: 1px solid #ccc;
 }
 
 .card button {
-    margin-top: 15px;
+    margin-top: 16px;
     width: 100%;
     padding: 12px;
     background: #667eea;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 15px;
+    cursor: pointer;
 }
 
 /* ---------- EXPENSE LIST ---------- */
@@ -92,20 +120,34 @@ ul {
 
 li {
     background: #f6f7fb;
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 8px;
+    margin-bottom: 14px;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li small {
+    display: block;
+    margin-top: 6px;
+    color: #555;
+}
+
+li .actions-inline {
+    display: flex;
+    gap: 8px;
 }
 
 li button {
-    margin-top: 8px;
-    margin-right: 8px;
-    padding: 6px 10px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
 }
 
 .secondary {
     background: #ddd;
-    color: black;
 }
 
 /* ---------- MODAL ---------- */
@@ -113,23 +155,27 @@ li button {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.6);
-    display: flex;
+
+    display: none;               /* 👈 IMPORTANT */
     justify-content: center;
     align-items: center;
 }
 
-.modal-content {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
+/* Modal visible state */
+.modal.show {
+    display: flex;
 }
 
-.modal-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
+/* ---------- ANIMATION ---------- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ---------- RESPONSIVE ---------- */
@@ -137,7 +183,4 @@ li button {
     .actions {
         flex-direction: column;
     }
-}
-.hidden {
-    display: none;
 }

@@ -14,6 +14,11 @@
 
 <div class="dashboard">
 
+    <div class="hero-card">
+        <h1>Expense Dashboard</h1>
+        <p>Track your daily spending smartly 💸</p>
+    </div>
+
     <div class="actions">
         <button id="showAddBtn">➕ Add Expense</button>
         <button id="showListBtn">📄 View Expenses</button>
@@ -23,6 +28,7 @@
     <div class="card hidden" id="addExpenseCard">
         <h3>Add Expense</h3>
         <form id="expenseForm">
+            <input type="date" id="expenseDate" />
             <input type="number" id="amount" placeholder="Amount (₹)" required />
             <input type="text" id="category" placeholder="Category" required />
             <input type="text" id="description" placeholder="Description" />

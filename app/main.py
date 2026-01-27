@@ -23,6 +23,14 @@ def create_application() -> FastAPI:
     """
     application = FastAPI(title="Expense Tracker API")
 
+    @application.get("/")
+    def root():
+        return {
+            "status": "running",
+            "service": "Expense Tracker API",
+            "docs": "/docs"
+        }
+
     # Enable CORS for frontend-backend communication
     application.add_middleware(
         CORSMiddleware,
